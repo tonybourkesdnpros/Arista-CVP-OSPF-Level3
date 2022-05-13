@@ -1,0 +1,13 @@
+---
+- name: Upload Configlets
+  hosts: CloudVision
+  connection: local
+  vars: 
+    path: "{{lookup('env','PWD')}}"
+  vars_files: 
+     - ../vars/CVP_model_OSPF.yml
+  tasks:
+    - name: Apply configlets
+      arista.cvp.cv_device_v3:
+        devices: "{{ CVP_DEVICES_EVPN_OSPF }}"
+        apply_mode: strict
