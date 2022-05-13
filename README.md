@@ -41,3 +41,10 @@ This uploads the OSPF underlay configuration as configlets to CVP
 
 This applies the configlets to the switches
 
+## 
+
+To use a playbook use the command: 
+
+    > ansible-playbook playbook/[playbook].yml
+    
+
