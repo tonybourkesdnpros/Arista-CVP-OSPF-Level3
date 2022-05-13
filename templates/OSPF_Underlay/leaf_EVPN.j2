@@ -1,0 +1,32 @@
+service routing protocols model multi-agent
+
+ip virtual-router mac-address 001c.7300.0099
+
+
+router bgp {{ underlay['global']['DC1']['ASN'] }}
+   router-id {{ underlay['devices'][inventory_hostname]['interfaces']['loopback0']['ipv4']}}
+
+   no bgp default ipv4-unicast
+   maximum-paths 3
+   distance bgp 20 200 200
+
+
+
+
+   neighbor EVPN peer group
+   neighbor EVPN remote-as {{ underlay['global']['DC1']['ASN']}} 
+   neighbor EVPN next-hop-self
+   neighbor EVPN send-community extended
+   neighbor EVPN maximum-routes 0
+   neighbor EVPN update-source Loopback0
+
+{% for peer in underlay['global']['DC1']['spine_peers'] %}
+   neighbor {{ peer }} peer group EVPN
+{% endfor %}  
+ 
+   address-family evpn
+     neighbor EVPN activate
+   
+   address-family ipv4
+     neighbor LEAF_Peer activate
+ 

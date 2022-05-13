@@ -1,0 +1,82 @@
+---
+  
+  
+  - hosts: leafs, spines
+    tasks:
+    - name: Register variables (underlay)
+      include_vars:
+        file: "{{lookup('env','PWD')}}/vars/underlay.yml"
+        name: underlay
+    - name: Register variables (underlay)
+      include_vars:
+        file: "{{lookup('env','PWD')}}/vars/mgmt.yml"
+        name: mgmt
+    - name: Create config directory
+      file:
+        path: "{{lookup('env','PWD')}}/configs/{{inventory_hostname}}"
+        state: directory
+
+ 
+        
+    - name: Create Interface config
+      template: 
+        src: "{{lookup('env','PWD')}}/templates/interfaces.j2"
+        dest: "{{lookup('env','PWD')}}/configs/{{inventory_hostname}}/{{inventory_hostname}}_interface.cfg"
+
+ 
+
+
+
+
+
+
+
+
+
+  
+  - hosts: spines
+    tasks:
+    - name: Register variables (underlay)
+      include_vars:
+        file: "{{lookup('env','PWD')}}/vars/underlay.yml"
+        name: underlay
+    - name: Register variables (underlay)
+      include_vars:
+        file: "{{lookup('env','PWD')}}/vars/mgmt.yml"
+        name: mgmt
+    - name: Create Spine EVPN Underlay config
+      template: 
+        src: "{{lookup('env','PWD')}}/templates/spine_EVPN.j2"
+        dest: "{{lookup('env','PWD')}}/configs/{{inventory_hostname}}/{{inventory_hostname}}_EVPN_underlay.cfg"
+
+
+  - hosts: leafs
+    tasks:
+    - name: Register variables (underlay)
+      include_vars:
+        file: "{{lookup('env','PWD')}}/vars/underlay.yml"
+        name: underlay
+    - name: Register variables (underlay)
+      include_vars:
+        file: "{{lookup('env','PWD')}}/vars/mgmt.yml"
+        name: mgmt
+    - name: Register VXLAN variables
+      include_vars:
+        file: "{{lookup('env','PWD')}}/vars/VXLAN.yml"
+        name: VXLAN
+    - name: Create Leaf EVPN Underlay config
+      template: 
+        src: "{{lookup('env','PWD')}}/templates/leaf_EVPN.j2"
+        dest: "{{lookup('env','PWD')}}/configs/{{inventory_hostname}}/{{inventory_hostname}}_EVPN_underlay.cfg"
+    - name: Create VXLAN Configuration
+      template: 
+        src: "{{lookup('env','PWD')}}/templates/VXLAN.j2"
+        dest: "{{lookup('env','PWD')}}/configs/{{inventory_hostname}}/{{inventory_hostname}}_VXLAN.cfg"
+
+
+
+
+
+    
+
+

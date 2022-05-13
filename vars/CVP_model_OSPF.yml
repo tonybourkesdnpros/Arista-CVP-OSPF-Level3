@@ -1,0 +1,101 @@
+path: "{{lookup('env','PWD')}}" 
+
+CVP_CONFIGLETS_EVPN_OSPF:
+  spine1_EVPN_underlay: "{{lookup('file','{{path}}/configs/OSPF/spine1/spine1_EVPN_underlay.cfg')}}"
+  spine1_interface: "{{lookup('file','{{path}}/configs/OSPF/spine1/spine1_interface.cfg')}}"
+  spine2_EVPN_underlay: "{{lookup('file','{{path}}/configs/OSPF/spine2/spine2_EVPN_underlay.cfg')}}"
+  spine2_interface: "{{lookup('file','{{path}}/configs/OSPF/spine2/spine2_interface.cfg')}}"
+  spine3_EVPN_underlay: "{{lookup('file','{{path}}/configs/OSPF/spine3/spine3_EVPN_underlay.cfg')}}"
+  spine3_interface: "{{lookup('file','{{path}}/configs/OSPF/spine3/spine3_interface.cfg')}}"
+  leaf1_EVPN_underlay: "{{lookup('file','{{path}}/configs/OSPF/leaf1/leaf1_EVPN_underlay.cfg')}}"
+  leaf1_interface: "{{lookup('file','{{path}}/configs/OSPF/leaf1/leaf1_interface.cfg')}}"
+  leaf2_EVPN_underlay: "{{lookup('file','{{path}}/configs/OSPF/leaf2/leaf2_EVPN_underlay.cfg')}}"
+  leaf2_interface: "{{lookup('file','{{path}}/configs/OSPF/leaf2/leaf2_interface.cfg')}}"
+  leaf3_EVPN_underlay: "{{lookup('file','{{path}}/configs/OSPF/leaf3/leaf3_EVPN_underlay.cfg')}}"
+  leaf3_interface: "{{lookup('file','{{path}}/configs/OSPF/leaf3/leaf3_interface.cfg')}}"
+  leaf4_EVPN_underlay: "{{lookup('file','{{path}}/configs/OSPF/leaf4/leaf4_EVPN_underlay.cfg')}}"
+  leaf4_interface: "{{lookup('file','{{path}}/configs/OSPF/leaf4/leaf4_interface.cfg')}}"
+  borderleaf1_EVPN_underlay: "{{lookup('file','{{path}}/configs/OSPF/borderleaf1/borderleaf1_EVPN_underlay.cfg')}}"
+  borderleaf1_interface: "{{lookup('file','{{path}}/configs/OSPF/borderleaf1/borderleaf1_interface.cfg')}}"
+  borderleaf2_EVPN_underlay: "{{lookup('file','{{path}}/configs/OSPF/borderleaf2/borderleaf2_EVPN_underlay.cfg')}}"
+  borderleaf2_interface: "{{lookup('file','{{path}}/configs/OSPF/borderleaf2/borderleaf2_interface.cfg')}}"
+
+  
+
+CVP_DEVICES_EVPN_OSPF:
+
+  - fqdn: 'spine1'
+    parentContainerName: 'Spine'
+    configlets:
+      - 'ATD-INFRA'
+      - 'spine1-base'
+      - 'spine1_EVPN_underlay'
+      - 'spine1_interface'
+  - fqdn: 'spine2'
+    parentContainerName: 'Spine'
+    configlets:
+      - 'ATD-INFRA'
+      - 'spine2-base'
+      - 'spine2_EVPN_underlay'
+      - 'spine2_interface'
+  - fqdn: 'spine3'
+    parentContainerName: 'Spine'
+    configlets:
+      - 'ATD-INFRA'
+      - 'spine3-base'
+      - 'spine3_EVPN_underlay'
+      - 'spine3_interface'
+  - fqdn: 'leaf1'
+    parentContainerName: 'Leaf'
+    configlets:
+      - 'ATD-INFRA'
+      - 'leaf1-base'
+      - 'leaf1_EVPN_underlay'
+      - 'leaf1_interface'
+      # - 'leaf1_VXLAN'
+      - 'MLAG-Left'
+  - fqdn: 'leaf2'
+    parentContainerName: 'Leaf'
+    configlets:
+      - 'ATD-INFRA'
+      - 'leaf2-base'
+      - 'leaf2_EVPN_underlay'
+      - 'leaf2_interface'
+      # - 'leaf2_VXLAN'
+      - 'MLAG-Right'
+  - fqdn: 'leaf3'
+    parentContainerName: 'Leaf'
+    configlets:
+      - 'ATD-INFRA'
+      - 'leaf3-base'
+      - 'leaf3_EVPN_underlay'
+      - 'leaf3_interface'
+      # - 'leaf3_VXLAN'
+      - 'MLAG-Left'
+  - fqdn: 'leaf4'
+    parentContainerName: 'Leaf'
+    configlets:
+      - 'ATD-INFRA'
+      - 'leaf4-base'
+      - 'leaf4_EVPN_underlay'
+      - 'leaf4_interface'
+      # - 'leaf4_VXLAN'
+      - 'MLAG-Right'
+  - fqdn: 'borderleaf1'
+    parentContainerName: 'Leaf'
+    configlets:
+      - 'ATD-INFRA'
+      - 'borderleaf1-base'
+      - 'borderleaf1_EVPN_underlay'
+      - 'borderleaf1_interface'
+      # - 'borderleaf1_VXLAN'
+      - 'MLAG-Left'
+  - fqdn: 'borderleaf2'
+    parentContainerName: 'Leaf'
+    configlets:
+      - 'ATD-INFRA'
+      - 'borderleaf2-base'
+      - 'borderleaf2_EVPN_underlay'
+      - 'borderleaf2_interface'
+      # - 'borderleaf2_VXLAN'
+      - 'MLAG-Right'

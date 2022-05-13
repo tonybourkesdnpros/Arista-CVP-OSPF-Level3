@@ -1,0 +1,18 @@
+{% for interface in underlay['devices'][inventory_hostname]['interfaces'] %}
+interface {{ interface }}
+  ip address {{ underlay['devices'][inventory_hostname]['interfaces'][interface]['ipv4']}}/{{ underlay['devices'][inventory_hostname]['interfaces'][interface]['mask']}}
+  ip ospf area 0
+{% endfor %}
+
+{% for interface in underlay['devices'][inventory_hostname]['unnumbered'] %}
+interface {{ interface }}
+  ip address unnumbered {{ underlay['global']['unnumbered']}}
+  mtu {{underlay['global']['MTU']}}
+  ip ospf area 0
+  ip ospf network point-to-point
+  no switchport
+{% endfor %}
+
+router ospf 10
+  router-id {{ underlay['devices'][inventory_hostname]['interfaces']['loopback0']['ipv4']}}
+

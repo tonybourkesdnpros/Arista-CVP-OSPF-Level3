@@ -1,0 +1,128 @@
+# Version 1.2
+# This is a YAML data model to create an OSPF-based underlay and iBGP EVPN network for the Arista ATD Level 3 style topology
+
+global:
+  DC1:
+    ASN: 65100
+    lo0: "192.168.101.0/24"
+    spine_peers:
+      - 192.168.101.101
+      - 192.168.101.102
+      - 192.168.101.103
+  MTU: 9214
+  unnumbered: loopback0
+devices:
+  spine1:
+    interfaces:
+      loopback0: 
+        ipv4: 192.168.101.101
+        mask: 32
+    unnumbered:
+      - Ethernet2
+      - Ethernet3
+      - Ethernet4
+      - Ethernet5
+      - Ethernet6
+      - Ethernet7
+  spine2:
+    interfaces:
+      loopback0: 
+        ipv4: 192.168.101.102
+        mask: 32
+    unnumbered:
+      - Ethernet2
+      - Ethernet3
+      - Ethernet4
+      - Ethernet5
+      - Ethernet6
+      - Ethernet7
+  spine3:
+    interfaces:
+      loopback0: 
+        ipv4: 192.168.101.103
+        mask: 32
+    unnumbered:
+      - Ethernet1
+      - Ethernet2
+      - Ethernet3
+      - Ethernet4
+      - Ethernet5
+      - Ethernet6
+  leaf1:
+    interfaces:
+      loopback0: 
+        ipv4: 192.168.101.11
+        mask: 32
+      loopback1: 
+        ipv4: 192.168.102.11
+        mask: 32
+    unnumbered:
+    - Ethernet3
+    - Ethernet4
+    - Ethernet5
+    MLAG: Odd
+  leaf2:
+    interfaces:
+      loopback0: 
+        ipv4: 192.168.101.12
+        mask: 32
+      loopback1: 
+        ipv4: 192.168.102.11
+        mask: 32
+    unnumbered:
+      - Ethernet3
+      - Ethernet4
+      - Ethernet5
+    MLAG: Even
+  leaf3:
+    interfaces:
+      loopback0: 
+        ipv4: 192.168.101.13
+        mask: 32
+      loopback1: 
+        ipv4: 192.168.102.13
+        mask: 32
+    unnumbered:
+      - Ethernet3
+      - Ethernet4
+      - Ethernet5
+    MLAG: Odd
+  leaf4:
+    interfaces:
+      loopback0: 
+        ipv4: 192.168.101.14
+        mask: 32
+      loopback1: 
+        ipv4: 192.168.102.13
+        mask: 32
+    unnumbered:
+      - Ethernet3
+      - Ethernet4
+      - Ethernet5
+    MLAG: Even
+  borderleaf1:
+    interfaces:
+      loopback0: 
+        ipv4: 192.168.101.21
+        mask: 32
+      loopback1: 
+        ipv4: 192.168.102.21
+        mask: 32
+    unnumbered:
+      - Ethernet3
+      - Ethernet4
+      - Ethernet5
+    MLAG: Odd
+  borderleaf2:
+    interfaces:
+      loopback0: 
+        ipv4: 192.168.101.22
+        mask: 32
+      loopback1: 
+        ipv4: 192.168.102.21
+        mask: 32
+    unnumbered:
+      - Ethernet3
+      - Ethernet4
+      - Ethernet5
+    MLAG: Even
